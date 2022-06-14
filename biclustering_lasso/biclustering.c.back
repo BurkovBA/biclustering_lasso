@@ -1,0 +1,42 @@
+#include <Python.h>
+#include <stdio.h>
+
+static PyObject *method_fputs(PyObject *self, PyObject *args) {
+    char *str, *filename = NULL;
+    int bytes_copied = -1;
+
+    /* Parse arguments */
+    if (!PyArg_ParseTuple(args, "ss", &str, &filename)) {
+        return NULL;
+    }
+
+    FILE *fp = fopen(filename, "w");
+    bytes_copied = fputs(str, fp);
+    fclose(fp);
+
+    return PyLong_FromLong(bytes_copied);
+}
+
+static char method_fputs_docs[] = "Python interface for puts C library function";
+
+static PyMethodDef BiclusteringMethods[] = {
+    {"fputs", (PyCFunction)method_fputs, METH_VARARGS, method_fputs_docs},
+    {NULL}
+};
+
+
+static char biclustering_module_doc[] = "Python/C biclustering implementation through L1 norm and sequential quadratic programming";
+
+static struct PyModuleDef biclustering_module = {
+    PyModuleDef_HEAD_INIT,
+    "biclustering", /* name of module */
+    biclustering_module_doc, /* module documentation */
+    -1, /* size of per-interpreter state of the module, or -1 if the module keeps state in global variables. */
+    BiclusteringMethods
+};
+
+PyMODINIT_FUNC PyInit_biclustering(void) {
+    PyObject *module = PyModule_Create(&biclustering_module);
+
+    return module;
+}

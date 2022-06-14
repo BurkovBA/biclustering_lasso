@@ -1,0 +1,2 @@
+/Users/burkov/miniforge3/envs/tf25/lib/python3.9/site-packages/biclustering_lasso.cpython-39-darwin.so
+/Users/burkov/miniforge3/envs/tf25/lib/python3.9/site-packages/biclustering_lasso-1.0.0-py3.9.egg-info
